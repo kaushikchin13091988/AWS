@@ -19,14 +19,14 @@ resource "aws_appautoscaling_policy" "AutoScalingPolicy" {
 resource "aws_appautoscaling_target" "AutoScalingTarget" {
   max_capacity       = 20
   min_capacity       = 2
-  resource_id        = "service/${aws_ecs_cluster.test-ecs-cluster.name}/${aws_ecs_service.ECSProductsService.name}"
+  resource_id        = "service/${aws_ecs_cluster.TestECSCluster.name}/${aws_ecs_service.ECSProductsService.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
 
 resource "aws_ecs_service" "ECSProductsService" {
     name = "products-ecs-service"
-    cluster = aws_ecs_cluster.test-ecs-cluster.arn
+    cluster = aws_ecs_cluster.TestECSCluster.arn
     #iam_role        = "arn:aws:iam::385501908346:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
     load_balancer {
         target_group_arn = "${var.target_group_id}" 
@@ -36,7 +36,7 @@ resource "aws_ecs_service" "ECSProductsService" {
     desired_count = 2
     launch_type = "FARGATE"
     platform_version = "LATEST"
-    task_definition = aws_ecs_task_definition.products-service-ecs-task-definition.arn
+    task_definition = aws_ecs_task_definition.ProductsServiceECSTaskDefinition.arn
     deployment_maximum_percent = 200
     deployment_minimum_healthy_percent = 100
     network_configuration {
@@ -53,7 +53,7 @@ resource "aws_ecs_service" "ECSProductsService" {
     scheduling_strategy = "REPLICA"
 }
 
-resource "aws_ecs_cluster" "test-ecs-cluster" {
+resource "aws_ecs_cluster" "TestECSCluster" {
   name = "test-ecs-cluster"
 
   setting {
@@ -62,7 +62,7 @@ resource "aws_ecs_cluster" "test-ecs-cluster" {
   }
 }
 
-resource "aws_ecs_task_definition" "products-service-ecs-task-definition" {
+resource "aws_ecs_task_definition" "ProductsServiceECSTaskDefinition" {
   family = "products-service-ecs-task-definition"
   requires_compatibilities = ["FARGATE"]
   network_mode = "awsvpc"

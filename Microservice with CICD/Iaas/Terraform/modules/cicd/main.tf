@@ -1,4 +1,4 @@
-resource "aws_codebuild_project" "productServiceCodeBuild" {
+resource "aws_codebuild_project" "ProductServiceCodeBuild" {
     arn                    = "arn:aws:codebuild:us-east-1:385501908346:project/products-service-build"
     badge_enabled          = false
     build_timeout          = 60
@@ -80,7 +80,7 @@ resource "aws_codebuild_project" "productServiceCodeBuild" {
 }
 
 # aws_codecommit_repository.productServiceCodeCommit:
-resource "aws_codecommit_repository" "productServiceCodeCommit" {
+resource "aws_codecommit_repository" "ProductServiceCodeCommit" {
     arn             = "arn:aws:codecommit:us-east-1:385501908346:products-service"
     clone_url_http  = "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/products-service"
     clone_url_ssh   = "ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/products-service"
@@ -92,7 +92,7 @@ resource "aws_codecommit_repository" "productServiceCodeCommit" {
 }
 
 # aws_codepipeline.productServiceCodePipeline:
-resource "aws_codepipeline" "productServiceCodePipeline" {
+resource "aws_codepipeline" "ProductServiceCodePipeline" {
     arn      = "arn:aws:codepipeline:us-east-1:385501908346:products-service-pipeline"
     id       = "products-service-pipeline"
     name     = "products-service-pipeline"

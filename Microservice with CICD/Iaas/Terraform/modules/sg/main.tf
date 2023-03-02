@@ -1,4 +1,4 @@
-resource "aws_security_group" "allow-http-traffic-sg" {
+resource "aws_security_group" "AllowHttpTrafficSg" {
   name        = "allow-http-traffic-sg"
   description = "Allow incoming HTTP and HTTPS traffic"
   vpc_id      = var.vpc_id

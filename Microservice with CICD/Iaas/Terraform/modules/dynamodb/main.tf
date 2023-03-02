@@ -1,4 +1,4 @@
-resource "aws_dynamodb_table" "productsDynamoDbTable" {
+resource "aws_dynamodb_table" "ProductsDynamoDbTable" {
     billing_mode   = "PAY_PER_REQUEST"
     hash_key       = "category"
     name           = "products"

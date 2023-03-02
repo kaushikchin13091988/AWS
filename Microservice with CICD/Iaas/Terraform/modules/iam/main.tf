@@ -1,5 +1,5 @@
-resource "aws_iam_role" "ecsServiceExecutionRole" {
-  name = "ecsServiceExecutionRole"
+resource "aws_iam_role" "EcsServiceExecutionRole" {
+  name = "EcsServiceExecutionRole"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -15,12 +15,12 @@ resource "aws_iam_role" "ecsServiceExecutionRole" {
   })
 }
 
-resource "aws_iam_policy" "ecsServiceExecutionPolicy" {
-  name = "ecsServiceExecutionPolicy"
+resource "aws_iam_policy" "EcsServiceExecutionPolicy" {
+  name = "EcsServiceExecutionPolicy"
   policy = file("modules/iam/ecsServiceExecutionPolicy.json")
 }
 
-resource "aws_iam_role_policy_attachment" "ecsServiceExecutionPolicyAttachment" {
-  role       = aws_iam_role.ecsServiceExecutionRole.name
-  policy_arn = aws_iam_policy.ecsServiceExecutionPolicy.arn
+resource "aws_iam_role_policy_attachment" "EcsServiceExecutionPolicyAttachment" {
+  role       = aws_iam_role.EcsServiceExecutionRole.name
+  policy_arn = aws_iam_policy.EcsServiceExecutionPolicy.arn
 }
