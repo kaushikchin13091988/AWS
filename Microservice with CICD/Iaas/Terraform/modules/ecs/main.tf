@@ -1,28 +1,28 @@
 
-# resource "aws_appautoscaling_policy" "AutoScalingPolicy" {
-#   name = "products-service-scaling-policy"
-#   policy_type = "TargetTrackingScaling"
-#   resource_id = aws_appautoscaling_target.AutoScalingTarget.resource_id
-#   scalable_dimension = aws_appautoscaling_target.AutoScalingTarget.scalable_dimension
-#   service_namespace = aws_appautoscaling_target.AutoScalingTarget.service_namespace
+resource "aws_appautoscaling_policy" "AutoScalingPolicy" {
+  name = "products-service-scaling-policy"
+  policy_type = "TargetTrackingScaling"
+  resource_id = aws_appautoscaling_target.AutoScalingTarget.resource_id
+  scalable_dimension = aws_appautoscaling_target.AutoScalingTarget.scalable_dimension
+  service_namespace = aws_appautoscaling_target.AutoScalingTarget.service_namespace
 
-#   target_tracking_scaling_policy_configuration {
-#     predefined_metric_specification {
-#       predefined_metric_type = "ECSProductsServiceAverageCPUUtilization"
-#     }
-#     target_value = 70
-#     scale_in_cooldown  = 2
-#     scale_out_cooldown = 2
-#   }
-# }
+  target_tracking_scaling_policy_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ECSServiceAverageCPUUtilization"
+    }
+    target_value = 70
+    scale_in_cooldown  = 2
+    scale_out_cooldown = 2
+  }
+}
 
-# resource "aws_appautoscaling_target" "AutoScalingTarget" {
-#   max_capacity       = 20
-#   min_capacity       = 2
-#   resource_id        = "service/${aws_ecs_cluster.test-ecs-cluster.name}/${aws_ecs_service.ECSProductsService.name}"
-#   scalable_dimension = "ecs:service:DesiredCount"
-#   service_namespace  = "ecs"
-# }
+resource "aws_appautoscaling_target" "AutoScalingTarget" {
+  max_capacity       = 20
+  min_capacity       = 2
+  resource_id        = "service/${aws_ecs_cluster.test-ecs-cluster.name}/${aws_ecs_service.ECSProductsService.name}"
+  scalable_dimension = "ecs:service:DesiredCount"
+  service_namespace  = "ecs"
+}
 
 resource "aws_ecs_service" "ECSProductsService" {
     name = "products-ecs-service"
